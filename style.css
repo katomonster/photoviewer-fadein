@@ -1,0 +1,344 @@
+/* ======= general styles ======= */
+input {
+    position: absolute;
+    left: -1000px;
+}
+
+/* ======= main spawning ======= */
+#gallery-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 300ms ease-out;
+    max-height: 0;
+    overflow: hidden;
+}
+
+#gallery-modal:target {
+    max-height: 100vh;
+    opacity: 1;
+    z-index: 1;
+}
+
+#gallery-modal:target .overlay {
+    height: 100%;
+}
+.gallery-unit-wrapper {
+    width: 815px;
+    height: 543px;
+    top: 50%;
+    left: 50%;
+    background: transparent;
+    transform: translateX(-50%) translateY(-50%);
+    position: absolute;
+}
+.gallery-container {
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+    width: inherit;
+    height: inherit;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: rgba(0,0,0,0.5);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+/* ======= show photoviewr via viewer tab action ======= */
+
+.view-all-btn {
+    display: block;
+    max-width: 510px;
+    max-height: 600px;
+    width: 100%;
+    height: 105vw;
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    background-image: url(images/landing-image.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.close-btn {
+    color: #555;
+    font-family: Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    line-height: 42px;
+    position: absolute;
+    color: #fff;
+    top: -38px;
+    right: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-indent: 100%;
+    width: 42px;
+    text-decoration: none;
+    z-index: 10;
+    pointer-events: auto;
+}
+.close-btn::before {
+    content: "\00d7";
+    font-size: 30px;
+    position: absolute;
+    text-shadow: 0 0 2px #000;
+    left: 0;
+}
+
+
+/* ======= viewer ======= */
+
+/* figure, shows the large image as bg image*/
+figure {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 543px;
+    z-index: 2;
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+/* thumbnail slider */
+.stand-by-image {
+    opacity: 0;
+}
+
+.for-prev .stand-by-image {
+    opacity: 0;
+}
+
+.predecessor-image {
+    z-index: 10;
+}
+
+.gallery-container input[type=radio]:checked + .stand-by-image {
+    opacity: 1;
+    transition: opacity 0ms ease-out;
+    z-index: 10;
+}
+
+.gallery-container input.in-transit[type=radio]:checked  + .stand-by-image {
+    opacity: 0;
+    transition: opacity 0ms ease-out;
+}
+
+.gallery-container.for-prev input.in-transit[type=radio]:checked + .stand-by-image {
+    opacity: 0;
+    transition: opacity 0ms ease-out;
+}
+
+.gallery-container input[type=radio]:not(:active) + .stand-by-image {
+    transition: opacity 500ms ease-out;
+}
+
+.gallery-container input[type=radio]:checked + .stand-by-image.flipping-image {
+    opacity: 0;
+    transition: opacity 0ms ease-out;
+}
+
+.gallery-container input[type=radio].active + .stand-by-image {
+    transition: opacity 0ms ease-out;
+    z-index: 10;
+}
+.gallery-container input[type=radio]:active + .stand-by-image:not(.flipping-direction),
+.gallery-container input[type=radio].active + .stand-by-image:not(.flipping-direction) {
+    opacity: 0;
+}
+.gallery-container.for-prev input[type=radio]:active + .stand-by-image:not(.flipping-direction),
+.gallery-container.for-prev input[type=radio].active + .stand-by-image:not(.flipping-direction) {
+    opacity: 0;
+}
+
+/* next prev button */
+.prev-btn,
+.next-btn {
+    position: absolute;
+    top: calc(50% - 32px);
+    color: #fff;
+    font-size: 30px;
+    display: none;
+    z-index: 20;
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+
+.prev-btn {
+    left: 12px;
+}
+
+.prev-btn:before,
+.next-btn:before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 0 solid #fff;
+}
+
+.prev-btn:before {
+    border-top-width: 4px;
+    border-left-width: 4px;
+    transform: rotate(-45deg);
+    box-shadow: -2px -2px 3px rgba(0, 0, 0, 0.3)
+}
+
+.next-btn {
+    right: 12px;
+}
+
+.next-btn:before {
+    border-top-width: 4px;
+    border-right-width: 4px;
+    transform: rotate(45deg);
+    box-shadow: 2px -2px 3px rgba(0, 0, 0, 0.3)
+}
+
+.gallery-container input[type=radio]:checked + figure + input + figure + .prev-btn,
+.gallery-container input[type=radio]:checked + figure + input + figure + .prev-btn + .next-btn,
+.gallery-container input[type=radio]:checked + figure + .prev-btn,
+.gallery-container input[type=radio]:checked + figure + .prev-btn + .next-btn {
+    display: block;
+}
+
+/* background image */
+.image-1 + figure,
+.image-1-prev + figure {
+    background-image: url(images/image01.jpg);
+}
+.image-2 + figure,
+.image-2-prev + figure {
+    background-image: url(images/image02.jpg);
+}
+.image-3 + figure,
+.image-3-prev + figure {
+    background-image: url(images/image03.jpg);
+}
+.image-4 + figure,
+.image-4-prev + figure {
+    background-image: url(images/image04.jpg);
+}
+.image-5 + figure,
+.image-5-prev + figure {
+    background-image: url(images/image05.jpg);
+}
+.image-6 + figure,
+.image-6-prev + figure {
+    background-image: url(images/image06.jpg);
+}
+.image-7 + figure,
+.image-7-prev + figure {
+    background-image: url(images/image07.jpg);
+}
+.image-8 + figure,
+.image-8-prev + figure {
+    background-image: url(images/image08.jpg);
+}
+.image-9 + figure,
+.image-9-prev + figure {
+    background-image: url(images/image09.jpg);
+}
+.image-10 + figure,
+.image-10-prev + figure {
+    background-image: url(images/image10.jpg);
+}
+.image-11 + figure,
+.image-11-prev + figure {
+    background-image: url(images/image11.jpg);
+}
+.image-11 + figure,
+.image-11-prev + figure  {
+    background-image: url(images/image11.jpg);
+}
+.image-12 + figure,
+.image-12-prev + figure {
+    background-image: url(images/image12.jpg);
+}
+.image-13 + figure,
+.image-13-prev + figure {
+    background-image: url(images/image13.jpg);
+}
+.image-14 + figure,
+.image-14-prev + figure {
+    background-image: url(images/image14.jpg);
+}
+
+.image-15 + figure,
+.image-15-prev + figure {
+    background-image: url(images/image15.jpg);
+}
+
+/* ======= media queries ======= */
+
+@media (max-width: 800px) {
+    figure {
+        width: 100vw;
+        height: 66.625vw ;
+    }
+    .gallery-unit-wrapper {
+        width: 100%;
+        height: 66.625vw;
+    }
+    .close-btn {
+        right: 0;
+    }
+
+}
+
+@media (min-aspect-ratio: 815/543) and (max-width: 1020px)  {
+    .gallery-unit-wrapper {
+        /*top: calc(50% + 113px);*/
+        height: auto;
+    }
+
+    .gallery-container {
+        height: 66.625vw;
+        overflow-y: auto;
+    }
+
+    figure {
+        height: calc(668/815 * 100vw);
+    }
+
+    .close-btn {
+        top: 72px;
+    }
+}
+
+@media (min-aspect-ratio: 815/543) and (max-width: 800px) {
+    .close-btn {
+        top: 28px;
+    }
+}
+
+@media (max-width: 460px) {
+    .prev-btn:before {
+        transform: rotate(-45deg) scale(0.5) translateX(-100%);
+    }
+    .next-btn:before {
+        transform: rotate(45deg) scale(0.5) translateX(100%);
+    }
+    .close-btn {
+        top: -28px;
+    }
+    .close-btn::before {
+        font-size: 20px;
+        transform: translate(100%, -20%);
+    }
+}
