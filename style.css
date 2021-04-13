@@ -118,6 +118,7 @@ figure {
 /* thumbnail slider */
 .stand-by-image {
     opacity: 0;
+    transform: scale(1.025);
 }
 
 .for-prev .stand-by-image {
@@ -132,6 +133,7 @@ figure {
     opacity: 1;
     transition: opacity 0ms ease-out;
     z-index: 10;
+    transform: scale(1);
 }
 
 .gallery-container input.in-transit[type=radio]:checked  + .stand-by-image {
@@ -145,7 +147,7 @@ figure {
 }
 
 .gallery-container input[type=radio]:not(:active) + .stand-by-image {
-    transition: opacity 500ms ease-out;
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .gallery-container input[type=radio]:checked + .stand-by-image.flipping-image {
